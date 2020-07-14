@@ -21,11 +21,12 @@ class WebLogin(Home):
             users = request.env['res.users'].sudo().search([], order='id', limit=1)
             if client_build_id and int(client_build_id) > 0:
                 user = users[0]
-                uid = user.id
-                request.params['login'] = user.login
-                request.params['password'] = 'admin'
-                request.params['login_success'] = True
-                return http.redirect_with_hash(self._login_redirect(uid, redirect='/web'))
+                uid = request.session.authenticate(request.session.db, 'admin', 'admin')
+                if uid:
+                    request.params['login'] = user.login
+                    request.params['password'] = 'admin'
+                    request.params['login_success'] = True
+                    return http.redirect_with_hash(self._login_redirect(uid, redirect='/web'))
         return response
 
     @http.route(['/saas/auth-to-build/<int:build_id>'], type='http',
