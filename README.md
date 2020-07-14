@@ -10,3 +10,8 @@ The repository contains modules for master instance (old name: *SaaS Portal*). O
 * https://gitlab.com/itpp/saas-clusters -- modules for multi-server deployment
 * https://github.com/itpp-labs/access-addons -- useful modules for client instances (*SaaS Client*)
 * https://github.com/it-projects-llc/odoo-saas-tools -- abandoned original repository
+
+
+* Login Build: http://client-domain/saas/auth-to-build/<int:build_id>'
+* Create Build: http://saas-domain/saas/public/<int:template_id>
+
