@@ -4,7 +4,6 @@
 from odoo.http import route, request, Controller
 from odoo import http, _
 from werkzeug.utils import redirect
-from ..tools.build_redirection import build_redirection
 import logging
 
 _logger = logging.getLogger(__name__)
