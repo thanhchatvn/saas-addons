@@ -4,7 +4,7 @@
 from odoo.http import route, request, Controller
 import logging
 
-_logger = logging.getLevelName(__name__)
+_logger = logging.getLogger(__name__)
 
 class SaaSPublicController(Controller):
     @route('/saas/public/<int:template_id>', type='http', auth='public')
