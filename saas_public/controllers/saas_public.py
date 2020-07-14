@@ -3,6 +3,7 @@
 
 from odoo.http import route, request, Controller
 from odoo import http, _
+from ..tools.build_redirection import build_redirection
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -23,8 +24,8 @@ class SaaSPublicController(Controller):
             build_url = build.get_url()
             _logger.info('new build url: %s' % build_url)
             current_db = request.session.db
-            return http.local_redirect('http://' + current_db +'/web/login?build_id=%s' % build.id)
-            # return request.env['auth_quick_master.token'].sudo().redirect_with_token(build_url, build.id,
+            return build_redirection('http://' + current_db +'/web/login?build_id=%s' % build.id)
+            # return request.env['auth_quick_master.token'].sudo().redirect_with_token('http://' + current_db +'/web/login?build_id=%s' % build.id, build.id,
             #                                                                          build_login='admin')
         else:
             return request.not_found()
