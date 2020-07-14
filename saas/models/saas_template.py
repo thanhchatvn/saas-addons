@@ -178,7 +178,7 @@ class SAASTemplateLine(models.Model):
                 'state': 'creating',
             })
             r.flush()
-            r.operator_db_id.with_delay().create_db(
+            r.operator_db_id.create_db(
                 None,
                 r.template_id.template_demo,
                 callback_obj=r,
@@ -188,13 +188,13 @@ class SAASTemplateLine(models.Model):
         self.ensure_one()
         self.to_rebuild = False
         self.state = 'installing_modules'
-        self.operator_id.with_delay().install_modules(self.template_id, self)
+        self.operator_id.install_modules(self.template_id, self)
 
     def prepare_name(self, db_name):
         self.ensure_one()
         return slugify(db_name)
 
-    def create_db(self, key_values=None, db_name=None, with_delay=True):
+    def create_db(self, key_values=None, db_name=None, with_delay=False):
         self.ensure_one()
         if not key_values:
             key_values = {}
@@ -210,11 +210,11 @@ class SAASTemplateLine(models.Model):
 
         self.env['saas.log'].log_db_creating(build, self.operator_db_id)
         if with_delay:
-            build.with_delay().create_db(
+            build.create_db(
                 self.operator_db_name,
                 self.template_id.template_demo,
             )
-            self.operator_id.with_delay().build_post_init(build, self.template_id.build_post_init, key_values)
+            self.operator_id.build_post_init(build, self.template_id.build_post_init, key_values)
         else:
             build.create_db(
                 self.operator_db_name,

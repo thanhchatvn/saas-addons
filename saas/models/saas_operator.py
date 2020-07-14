@@ -89,7 +89,7 @@ class SAASOperator(models.Model):
                 _request_stack.pop()
 
             template_operator_id.state = 'post_init'
-            self.with_delay().post_init(template_id, template_operator_id)
+            self.post_init(template_id, template_operator_id)
 
     @job
     def post_init(self, template_id, template_operator_id):

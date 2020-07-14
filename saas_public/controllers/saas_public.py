@@ -5,7 +5,7 @@ from odoo.http import route, request, Controller
 
 
 class SaaSPublicController(Controller):
-    @route('/saas_public/<int:template_id>/create-fast-build', type='http', auth='public')
+    @route('/saas/public/<int:template_id>', type='http', auth='public')
     def create_fast_build(self, template_id, **kwargs):
         if not kwargs:
             kwargs = {}
