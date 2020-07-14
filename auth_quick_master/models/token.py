@@ -43,10 +43,13 @@ class Token(models.Model):
         return None
 
     def redirect_with_token(self, build_url, build_id, build_login):
+        _logger.info('build_url:  %s' % build_url)
+        _logger.info('build_url:  %s' % build_id)
+        _logger.info('build_url:  %s' % build_login)
         token_obj = self.create({
             'build': build_id,
             'build_login': build_login,
         })
         url = urllib.parse.urljoin(build_url, '/auth_quick/check-token?token={}'.format(token_obj.token))
-
+        _logger.info('build_url:  %s' % build_login)
         return build_redirection(url)
