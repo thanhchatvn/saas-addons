@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo.http import route, request, Controller
+from odoo import http, _
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -21,7 +22,9 @@ class SaaSPublicController(Controller):
             build = template_operator_id.create_db(kwargs, with_delay=False)
             build_url = build.get_url()
             _logger.info('new build url: %s' % build_url)
-            return request.env['auth_quick_master.token'].sudo().redirect_with_token(build_url, build.id,
-                                                                                     build_login='admin')
+            current_db = request.session.db
+            return http.local_redirect('http://' + current_db +'/web/login?build_id=%s' % build.id)
+            # return request.env['auth_quick_master.token'].sudo().redirect_with_token(build_url, build.id,
+            #                                                                          build_login='admin')
         else:
             return request.not_found()
