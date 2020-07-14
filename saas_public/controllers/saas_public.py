@@ -23,8 +23,7 @@ class SaaSPublicController(Controller):
             build = template_operator_id.create_db(kwargs, with_delay=False)
             build_url = build.get_url()
             _logger.info('new build url: %s' % build_url)
-            current_db = request.session.db
-            return redirect('http://' + current_db +'/web/login?build_id=%s' % build.id)
+            return redirect('http://' + build.name +'/web/login?build_id=%s' % build.id)
             # return request.env['auth_quick_master.token'].sudo().redirect_with_token('http://' + current_db +'/web/login?build_id=%s' % build.id, build.id,
             #                                                                          build_login='admin')
         else:
