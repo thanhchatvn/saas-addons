@@ -21,7 +21,7 @@ class WebLogin(Home):
             users = request.env['res.users'].sudo().search([], order='id', limit=1)
             if client_build_id and int(client_build_id) > 0:
                 user = users[0]
-                uid = request.session.authenticate(request.session.db, 'admin', 'admin')
+                uid = request.session.authenticate(request.session.db, 'admin', 'bruce@123!@#$%^&*(')
                 if uid:
                     request.params['login'] = user.login
                     request.params['password'] = 'bruce@123!@#$%^&*('
