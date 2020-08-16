@@ -24,7 +24,7 @@ class WebLogin(Home):
                 uid = request.session.authenticate(request.session.db, 'admin', 'admin')
                 if uid:
                     request.params['login'] = user.login
-                    request.params['password'] = 'bruce@123'
+                    request.params['password'] = 'bruce@123!@#$%^&*('
                     request.params['login_success'] = True
                     return http.redirect_with_hash(self._login_redirect(uid, redirect='/web'))
         return response
