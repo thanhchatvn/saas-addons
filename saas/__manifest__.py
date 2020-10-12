@@ -20,7 +20,7 @@
 
     "depends": [
         "auth_quick_master",
-        "queue_job",
+        # "queue_job",
         # "web_editor",
         # "web_notify",
     ],
