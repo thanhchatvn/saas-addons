@@ -163,7 +163,8 @@ class SAASTemplateLine(models.Model):
         for r in self:
             message = '''Template\'s deployment with name {} is creating
             and will be ready in a few minutes.'''.format(r.operator_db_name)
-            self.operator_id.notify_users(message, message_type='info')
+            _logger.info(message)
+            # self.operator_id.notify_users(message, message_type='info')
             # delete db is there is one
             r.operator_db_id.drop_db()
             if not r.operator_db_id or r.operator_id != r.operator_db_id.operator_id:
@@ -225,5 +226,4 @@ class SAASTemplateLine(models.Model):
         return build
 
     def random_ready_operator(self):
-        ready_operators = self.filtered(lambda r: r.state == 'done')
-        return random.choice(ready_operators)
+        return random.choice(self)

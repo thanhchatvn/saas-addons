@@ -21,8 +21,8 @@
     "depends": [
         "auth_quick_master",
         "queue_job",
-        "web_editor",
-        "web_notify",
+        # "web_editor",
+        # "web_notify",
     ],
     "external_dependencies": {"python": ['python-slugify'], "bin": []},
     "data": [

@@ -12,5 +12,5 @@ class SaasController(odoo.http.Controller):
     def auth_to_build(self, build_id=None, **kwargs):
         if not build_id:
             return False
-        build_url = request.env['saas.db'].browse(build_id).get_url() + '/auth_quick/login?build_login=admin'
+        build_url = request.env['saas.db'].browse(build_id).get_url() + '/auth_quick/login?build_login=demo'
         return build_redirection(build_url)

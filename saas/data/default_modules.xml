@@ -133,4 +133,8 @@
         <field name="name">repair</field>
         <field name="description">Repairs</field>
     </record>
+    <record id="retail" model="saas.module">
+        <field name="name">pos_retail</field>
+        <field name="description">POS Retail</field>
+    </record>
 </odoo>
