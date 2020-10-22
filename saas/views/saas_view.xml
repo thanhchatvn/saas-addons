@@ -27,6 +27,8 @@
 
     <!-- Menu items-->
     <menuitem name="SaaS"
+              web_icon="saas,static/description/icon.png"
+              groups="base.group_no_one"
               id="saas_main_menu"/>
 
     <menuitem name="Templates"

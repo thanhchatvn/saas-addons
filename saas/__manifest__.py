@@ -11,7 +11,7 @@
     "version": "13.0.2.4.3",
     "application": False,
 
-    "author": "IT-Projects LLC, Ivan Yelizariev",
+    "author": "IT-Projects LLC, Ivan Yelizariev,TL Technology",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "AGPL-3",
