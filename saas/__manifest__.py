@@ -28,6 +28,10 @@
     "data": [
         "security/saas_security.xml",
         "security/ir.model.access.csv",
+        "data/ir_cron_data.xml",
+        "data/saas_operator_data.xml",
+        "data/default_modules.xml",
+        "data/db_sequence.xml",
         "views/saas_view.xml",
         "views/saas_template_views.xml",
         "views/saas_template_operator_views.xml",
@@ -35,10 +39,7 @@
         "views/saas_module_views.xml",
         "views/saas_db_views.xml",
         "wizard/saas_template_create_build_view.xml",
-        "data/ir_cron_data.xml",
-        "data/saas_operator_data.xml",
-        "data/default_modules.xml",
-        "data/db_sequence.xml",
+
     ],
     "demo": [
         "demo/saas_template_demo.xml",

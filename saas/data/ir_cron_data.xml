@@ -1,6 +1,7 @@
 <!-- Copyright 2019 Denis Mudarisov <https://it-projects.info/team/trojikman>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).-->
-<odoo noupdate="1">
+<odoo noupdate="0">
+    <data>
         <record id="preparing_template_next_cron" model="ir.cron">
             <field name="name">Preparing Template Next Cron</field>
             <field name="model_id" ref="saas.model_saas_template_operator"/>
@@ -13,4 +14,5 @@
             <field name="state">code</field>
             <field name="code">model.preparing_template_next()</field>
         </record>
+    </data>
 </odoo>
