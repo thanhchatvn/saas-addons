@@ -3,12 +3,12 @@
 # Copyright 2019 Anvar Kildebekov <https://it-projects.info/team/kildebekov>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": """SaaS Base""",
+    "name": """SaaS Portal""",
     "summary": """Base module for master SaaS instance""",
     "category": "SaaS",
     # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version=13.0",
     "images": [],
-    "version": "13.0.2.4.3",
+    "version": "1.0.0.1",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev,TL Technology",
@@ -39,6 +39,7 @@
         "views/saas_module_views.xml",
         "views/saas_db_views.xml",
         "wizard/saas_template_create_build_view.xml",
+        "wizard/saas_upgrade.xml",
 
     ],
     "demo": [

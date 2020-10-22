@@ -1,11 +1,12 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Denis Mudarisov <https://it-projects.info/team/trojikman>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields
+from odoo import models, fields, api, tools, SUPERUSER_ID, sql_db, registry
 from odoo.addons.queue_job.job import job
+from odoo.http import _request_stack
 
 
-class SAASDB(models.Model):
+class saas_db(models.Model):
     _name = 'saas.db'
     _description = 'Build'
 
@@ -22,7 +23,7 @@ class SAASDB(models.Model):
 
     def unlink(self):
         self.drop_db()
-        return super(SAASDB, self).unlink()
+        return super(saas_db, self).unlink()
 
     @job
     def create_db(self, template_db, demo, lang='en_US', callback_obj=None, callback_method=None):
@@ -47,9 +48,19 @@ class SAASDB(models.Model):
         return self.operator_id.get_db_url(self)
 
     def action_get_build_access(self):
-        auth_url = '/saas/auth-to-build/' + str(self.id)
+        self.ensure_one()
+        auth_url = self.name + '/saas/auth-to-build/' + str(self.id)
         return {
             'type': 'ir.actions.act_url',
             'target': 'new',
             'url': auth_url,
         }
+
+    def upgrade(self, models_name):
+        for build in self:
+            db = sql_db.db_connect(build.name)
+            with api.Environment.manage(), db.cursor() as cr:
+                env = api.Environment(cr, SUPERUSER_ID, {})
+                _request_stack.push(None)
+                env['ir.module.module'].sudo().search([('name', 'in', models_name)]).button_immediate_upgrade()
+                _request_stack.pop()
