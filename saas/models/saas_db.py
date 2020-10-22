@@ -49,7 +49,7 @@ class saas_db(models.Model):
 
     def action_get_build_access(self):
         self.ensure_one()
-        auth_url = self.name + '/saas/auth-to-build/' + str(self.id)
+        auth_url = 'http://' + self.name + '/saas/auth-to-build/' + str(self.id)
         return {
             'type': 'ir.actions.act_url',
             'target': 'new',
