@@ -63,9 +63,10 @@ class saas_db(models.Model):
             threaded_synchronization.start()
 
     def _auto_upgrade(self, db_name, models_name=[]):
-        db = sql_db.db_connect(db_name)
-        with api.Environment.manage(), db.cursor() as cr:
-            env = api.Environment(cr, SUPERUSER_ID, {})
-            _request_stack.push(None)
+        with api.Environment.manage():
+            new_cr = registry(self._cr.dbname).cursor()
+            env = api.Environment(new_cr, SUPERUSER_ID, {})
             env['ir.module.module'].sudo().search([('name', 'in', models_name)]).button_immediate_upgrade()
-            _request_stack.pop()
+            new_cr.commit()
+            new_cr.close()
+        return True
