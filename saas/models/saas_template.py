@@ -115,6 +115,7 @@ class SAASTemplateLine(models.Model):
     template_id = fields.Many2one('saas.template', required=True, ondelete='cascade')
     operator_id = fields.Many2one('saas.operator', required=True)
     operator_db_name = fields.Char(required=True, string="Template database name")
+    name = fields.Char('Name', related='operator_db_name')
     operator_db_id = fields.Many2one('saas.db', readonly=True)
     operator_db_state = fields.Selection(related='operator_db_id.state', string='Database operator state')
     to_rebuild = fields.Boolean(default=True)

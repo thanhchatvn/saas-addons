@@ -4,7 +4,7 @@
 from odoo import models, fields, api, tools, SUPERUSER_ID, sql_db, registry
 from odoo.addons.queue_job.job import job
 from odoo.http import _request_stack
-
+import threading
 
 class saas_db(models.Model):
     _name = 'saas.db'
@@ -56,11 +56,16 @@ class saas_db(models.Model):
             'url': auth_url,
         }
 
-    def upgrade(self, models_name):
-        for build in self:
-            db = sql_db.db_connect(build.name)
-            with api.Environment.manage(), db.cursor() as cr:
-                env = api.Environment(cr, SUPERUSER_ID, {})
-                _request_stack.push(None)
-                env['ir.module.module'].sudo().search([('name', 'in', models_name)]).button_immediate_upgrade()
-                _request_stack.pop()
+    def upgrade(self, db_names, models_name):
+        for db_name in db_names:
+            threaded_synchronization = threading.Thread(target=self._auto_upgrade, args=(
+                db_name, models_name))
+            threaded_synchronization.start()
+
+    def _auto_upgrade(self, db_name, models_name=[]):
+        db = sql_db.db_connect(db_name)
+        with api.Environment.manage(), db.cursor() as cr:
+            env = api.Environment(cr, SUPERUSER_ID, {})
+            _request_stack.push(None)
+            env['ir.module.module'].sudo().search([('name', 'in', models_name)]).button_immediate_upgrade()
+            _request_stack.pop()

@@ -17,5 +17,13 @@ class SaasUpgrade(models.TransientModel):
 
     def do_upgrade(self):
         self.ensure_one()
-        self.env['saas.db'].browse(self.env.context.get('active_ids', [])).upgrade([module.name for module in self.module_ids])
+        context = self.env.context
+        dbs = None
+        if context.get('source_mode', None) == 'saas.db':
+            dbs = self.env['saas.db'].browse(self.env.context.get('active_ids', []))
+        else:
+            dbs = self.env['saas.template.operator'].browse(self.env.context.get('active_ids', []))
+        if dbs:
+            dbnames = [db.name for db in dbs]
+            self.env['saas.db'].upgrade(dbnames, [module.name for module in self.module_ids])
         return True

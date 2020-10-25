@@ -25,6 +25,13 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record model='ir.actions.act_window' id="saas_database_templates" >
+        <field name="name">SaaS Database Templates</field>
+        <field name="res_model">saas.template.operator</field>
+        <field name="views">[(False, 'form')]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <!-- Menu items-->
     <menuitem name="SaaS"
               web_icon="saas,static/description/icon.png"
@@ -48,5 +55,11 @@
               id="menu_saas_operator"
               sequence="5"
               action="saas_operator"/>
+
+    <menuitem name="Database Template"
+              parent="saas_main_menu"
+              id="menu_saas_database_templates"
+              sequence="6"
+              action="saas_database_templates"/>
 
 </odoo>

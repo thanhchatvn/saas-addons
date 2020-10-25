@@ -19,13 +19,25 @@
             </field>
         </record>
 
-        <record id="action_saas_upgrade" model="ir.actions.act_window">
+        <record id="action_saas_upgrade_build" model="ir.actions.act_window">
             <field name="name">Upgrade Modules</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">saas.upgrade</field>
+            <field name="context">{'source_mode': 'saas.db'}</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
             <field name="binding_model_id" ref="saas.model_saas_db" />
+            <field name="binding_view_types">list</field>
+        </record>
+
+        <record id="action_saas_upgrade_template" model="ir.actions.act_window">
+            <field name="name">Upgrade Modules</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">saas.upgrade</field>
+            <field name="context">{'source_mode': 'saas.template.operator'}</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="saas.model_saas_template_operator" />
             <field name="binding_view_types">list</field>
         </record>
 
